@@ -57,23 +57,30 @@ StepBeta <- function(object, k = 2){
   if(class(object) != "betareg"){
 
     step(object, direction = "both")
-  } else
-    {
+    } else{
 
     full_model <- object
-    if(!identical(grep("\\|", as.character(formula(full_model)[3])), integer(0)) ){
-      full_model_VertBar <- paste("|",gsub(".*\\|","",as.character(formula(full_model)[3])))
+
+    formula_full_model <- check_formula_terms(full_model)
+
+    if(!identical(grep("\\|", as.character(formula_full_model[3])), integer(0)) ){
+      full_model_VertBar <- paste("|",gsub(".*\\|","",as.character(formula_full_model[3])))
     } else {
       full_model_VertBar <- ""
     }
     full_AIC <- AIC(full_model, k = k)
 
-
-    formula_NoInt <- remove_formula_interactions(formula(full_model))
+    formula_NoInt <- remove_formula_interactions(formula_full_model)
     starting_NoInt_AIC <- 0
 
-    Terms_NoInt <- attr(object$terms$full,"term.labels")
-    Terms_NoInt <- Terms_NoInt[-c(grep(":",Terms_NoInt))]
+    Terms <- attr(object$terms$full,"term.labels")
+    is.Terms_NoInt <- Terms[-c(grep(":",Terms))]
+      if(length(is.Terms_NoInt) > 0){
+        Terms_NoInt <- is.Terms_NoInt
+      } else {
+        Terms_NoInt <- Terms
+      }
+
     Results <- as.data.frame(matrix(ncol=2))
     names(Results) <- c("Model","AIC")
     models <- list()
@@ -125,7 +132,7 @@ StepBeta <- function(object, k = 2){
       while(diff > 5e-15){
         i <- 1
         while(i < length(Terms_Int) + 1){
-          new_formula <- keep_formula_terms(formula(full_model),c(unique(Terms_Int[c(starting_variables,i)])))
+          new_formula <- keep_formula_terms(formula_full_model,c(unique(Terms_Int[c(starting_variables,i)])))
           new_formula <- as.formula(paste(new_formula[2],new_formula[1],as.character(formula(mod_reduced)[3]), "+", new_formula[3],full_model_VertBar))
           mod_updated <- try(betareg(new_formula, data = object$model),T)
           if(isTRUE(class(mod_updated) == "try-error")) {
