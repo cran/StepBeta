@@ -54,12 +54,20 @@
 #'
 StepBeta <- function(object, k = 2){
   if(requireNamespace("betareg")){
-  if(class(object) != "betareg"){
-
-    step(object, direction = "both")
+    if(!inherits(object, "betareg")){
+      step(object, direction = "both")
     } else{
 
     full_model <- object
+
+    #Control terms
+    ##############
+    beta_control_link_mean <- full_model$link$mean$name
+    beta_control_link_phi <- full_model$link$precision$name
+    beta_control_type <-  full_model$type
+    beta_control_offset_mean <- full_model$offset$mean
+    beta_control_weights <- full_model$weights
+    ##############
 
     formula_full_model <- check_formula_terms(full_model)
 
@@ -92,7 +100,15 @@ StepBeta <- function(object, k = 2){
       while(i < length(Terms_NoInt) + 1){
         new_formula <- keep_formula_terms(formula_NoInt,c(unique(Terms_NoInt[c(starting_variables,i)])))
         new_formula <- as.formula(paste(new_formula[2], new_formula[1], new_formula[3],full_model_VertBar))
-        mod_updated <- try(betareg(new_formula, data = object$model),T)
+        mod_updated <- try(betareg(new_formula, data = object$model,
+                                   weights = beta_control_weights,
+                                   link = beta_control_link_mean,
+                                   link.phi =  beta_control_link_phi,
+                                   type = beta_control_type,
+                                   if(!is.null(beta_control_offset_mean)){
+                                       offset = c(beta_control_offset_mean)
+                                   }
+                                   ),T)
         if(isTRUE(class(mod_updated) == "try-error")) {
           models[[i]] <- NA
           i <- i + 1
@@ -134,7 +150,14 @@ StepBeta <- function(object, k = 2){
         while(i < length(Terms_Int) + 1){
           new_formula <- keep_formula_terms(formula_full_model,c(unique(Terms_Int[c(starting_variables,i)])))
           new_formula <- as.formula(paste(new_formula[2],new_formula[1],as.character(formula(mod_reduced)[3]), "+", new_formula[3],full_model_VertBar))
-          mod_updated <- try(betareg(new_formula, data = object$model),T)
+          mod_updated <-  try(betareg(new_formula, data = object$model,
+                                      weights = beta_control_weights,
+                                      link = beta_control_link_mean,
+                                      link.phi =  beta_control_link_phi,
+                                      type = beta_control_type,
+                                      if(!is.null(beta_control_offset_mean)){
+                                        offset = c(beta_control_offset_mean)
+                                      }),T)
           if(isTRUE(class(mod_updated) == "try-error")) {
             i <- i + 1
             models[[i]] <- NA
@@ -162,4 +185,3 @@ StepBeta <- function(object, k = 2){
     }
   }
 }
-

@@ -1,9 +1,9 @@
-31870382d9a1b017d39bea6b5b4b613b *DESCRIPTION
+3ce5dcab513a5719663858ef4dc166f0 *DESCRIPTION
 bc89e6dc1604f5d0a96e9da0e3446a82 *NAMESPACE
 e0fcaa404045118eb43407c04ff1c40d *R/Check_formual_terms.R
 a2cb6196274838ce2db3e16679ea16db *R/Keep_formula_terms.R
 04fc510a0f0cbb46f06622a4875ca869 *R/Remove_formula_interactions.R
-0dd7659afc9931094679fb8a492ca864 *R/Step_Aic_beta_regression.R
+fbd7ee45634e20d31c2a1ba2ba2f30fa *R/Step_Aic_beta_regression.R
 d70d1a6976f658ac202b671bc5518935 *man/StepBeta.Rd
 68f5bfbbc4d506b1948e07691a65ab5d *man/check_formula_terms.Rd
 1513e38b07b68a2382ce46cda89d9756 *man/keep_formula_terms.Rd
