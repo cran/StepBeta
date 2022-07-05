@@ -2,8 +2,10 @@
 
 export(StepBeta)
 export(check_formula_terms)
+export(dispersion_formula_terms)
 export(keep_formula_terms)
 export(remove_formula_interactions)
+import(combinat)
 import(glue)
 import(stats)
 importFrom(betareg,betareg)

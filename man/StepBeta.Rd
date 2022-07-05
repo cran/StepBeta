@@ -4,12 +4,14 @@
 \alias{StepBeta}
 \title{Stepwise model selection for Beta Regression}
 \usage{
-StepBeta(object, k = 2)
+StepBeta(object, k = 2, dispersion = T)
 }
 \arguments{
 \item{object}{Object of class "betareg". If the class is different the function apply the step function in "stats" package}
 
 \item{k}{The penalty parameter used for the criterion, e.g. default is k = 2 which identify the classical AIC. BIC can be obtained as k = log(n)}
+
+\item{dispersion}{provide the stepwise procedure also for dispersion parameter. Default is TRUE}
 }
 \value{
 The algorithm returns an object of class "betareg"
