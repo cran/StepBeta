@@ -1,11 +1,11 @@
-fc108a24d8ff5b02ad7a07d606fee94b *DESCRIPTION
+7edaeca844d45b875eb27d24bbcc96b9 *DESCRIPTION
 2834ed53738078bea30145ba0a9f3cf1 *NAMESPACE
 e0fcaa404045118eb43407c04ff1c40d *R/Check_formual_terms.R
 b428bf9bce528764986176199465c1ed *R/Dispersion_formula_terms.R
 a2cb6196274838ce2db3e16679ea16db *R/Keep_formula_terms.R
 04fc510a0f0cbb46f06622a4875ca869 *R/Remove_formula_interactions.R
-7193d4a046097b2bc8c53d89e2cf4bef *R/Step_Aic_beta_regression.R
-fa9a105f4527a614fb8a87e4b779d87f *man/StepBeta.Rd
+0a43324fda0fd67fea2e2036c081b15b *R/Step_Aic_beta_regression.R
+4a57327fdfbc850ce0bd871e99c24007 *man/StepBeta.Rd
 68f5bfbbc4d506b1948e07691a65ab5d *man/check_formula_terms.Rd
 52e347fc784f6bff8a09f82128d7ec77 *man/dispersion_formula_terms.Rd
 1513e38b07b68a2382ce46cda89d9756 *man/keep_formula_terms.Rd

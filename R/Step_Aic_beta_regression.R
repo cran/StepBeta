@@ -32,13 +32,12 @@
 #' @export
 #' @param object Object of class "betareg". If the class is different the function apply the step function in "stats" package
 #' @param k The penalty parameter used for the criterion, e.g. default is k = 2 which identify the classical AIC. BIC can be obtained as k = log(n)
-#' @param dispersion provide the stepwise procedure also for dispersion parameter. Default is TRUE
+#' @param dispersion Provide the stepwise procedure also for dispersion parameter. Default is TRUE
 #' @examples
 #' ## Starting from a "betareg" model
 #'
 #' ## Becker, R. A., Chambers, J. M. and Wilks, A. R. (1988) The New S Language.
 #' ## Wadsworth & Brooks/Cole. (has iris3 as iris.)
-#'
 #'
 #' ## Prepare the data
 #'
@@ -46,12 +45,21 @@
 #' data <- iris
 #' data$Sepal.Length <- data$Sepal.Length/(max(data$Sepal.Length) + 0.01)
 #'
+#' ###### Mean parameters
 #'
 #' fullModel <- betareg(Sepal.Length ~ Sepal.Width * Petal.Length *
 #'                                     Petal.Width * Species, data = data)
 #' reducedModel <- StepBeta(fullModel)
-#'
 #' summary(reducedModel)
+#'
+#' ##### Mean and precision parameters
+#'
+#' fullModel <- betareg(Sepal.Length ~ Sepal.Width * Petal.Length *
+#'                                     Petal.Width * Species| Sepal.Width + Petal.Length,
+#'                                     data = data)
+#' reducedModel <- StepBeta(fullModel, dispersion = TRUE)
+#' summary(reducedModel)
+#'
 #'
 StepBeta <- function(object, k = 2, dispersion = T){
   if(requireNamespace("betareg")){
@@ -232,6 +240,7 @@ StepBeta <- function(object, k = 2, dispersion = T){
                          if(!is.null(beta_control_offset_mean)){
                            offset = c(beta_control_offset_mean)
                          })
+  final_model$call <- paste("betareg(formula = ",formula(final_model)[2], formula(final_model)[1],formula(final_model)[3], "data =",object$call$data,")")
   return(final_model)
 }
 

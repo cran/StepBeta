@@ -11,7 +11,7 @@ StepBeta(object, k = 2, dispersion = T)
 
 \item{k}{The penalty parameter used for the criterion, e.g. default is k = 2 which identify the classical AIC. BIC can be obtained as k = log(n)}
 
-\item{dispersion}{provide the stepwise procedure also for dispersion parameter. Default is TRUE}
+\item{dispersion}{Provide the stepwise procedure also for dispersion parameter. Default is TRUE}
 }
 \value{
 The algorithm returns an object of class "betareg"
@@ -36,19 +36,27 @@ During the procedure, StepBeta considers all the possible models which betareg c
 ## Becker, R. A., Chambers, J. M. and Wilks, A. R. (1988) The New S Language.
 ## Wadsworth & Brooks/Cole. (has iris3 as iris.)
 
-
 ## Prepare the data
 
 library(betareg)
 data <- iris
 data$Sepal.Length <- data$Sepal.Length/(max(data$Sepal.Length) + 0.01)
 
+###### Mean parameters
 
 fullModel <- betareg(Sepal.Length ~ Sepal.Width * Petal.Length *
                                     Petal.Width * Species, data = data)
 reducedModel <- StepBeta(fullModel)
-
 summary(reducedModel)
+
+##### Mean and precision parameters
+
+fullModel <- betareg(Sepal.Length ~ Sepal.Width * Petal.Length *
+                                    Petal.Width * Species| Sepal.Width + Petal.Length,
+                                    data = data)
+reducedModel <- StepBeta(fullModel, dispersion = TRUE)
+summary(reducedModel)
+
 
 }
 \references{
