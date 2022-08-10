@@ -2,12 +2,12 @@
 #' @title Stepwise model selection for Beta Regression
 #' @description
 #' This function performs a stepwise algorithm to define the best linear predictor according to an user defined criterion (defeault is the Akaike Information Criterion aka AIC).
-#' It works for objects of class "betareg". If the object is different from "betareg" class, the function performs the classical "step" function in "stats" package.
+#' It works for objects of class "betareg" from betareg function. If the object is different from "betareg" class, the function performs the classical step function in "stats" package.
 #' @author
 #' Sergio Garofalo
 #'
 #' @details
-#' StepBeta is different from step (stats) and stepAIC (MASS) functions; for an object of class "betareg" is impossible to use an algorithm which uses the function extractAIC.
+#' StepBeta is different from step (stats) and stepAIC (MASS) functions; for an object of class "betareg" is impossible to use an algorithm which uses the function extractAIC
 #' Starting from a full model it provides a backaward procedure where the scope model is the reduced one.
 #'
 #' First, StepBeta operates with all the principal effects included in the model; starting from the full model, the algorithm computes all the possible models, it calculates the measure (default is AIC) and it defines as a good predictor the model with lower AIC.
@@ -29,6 +29,7 @@
 #' @import stats
 #' @importFrom betareg betareg
 #' @import glue
+#' @import MASS
 #' @export
 #' @param object Object of class "betareg". If the class is different the function apply the step function in "stats" package
 #' @param k The penalty parameter used for the criterion, e.g. default is k = 2 which identify the classical AIC. BIC can be obtained as k = log(n)

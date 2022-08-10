@@ -2,7 +2,7 @@
 % Please edit documentation in R/Check_formual_terms.R
 \name{check_formula_terms}
 \alias{check_formula_terms}
-\title{StepBeta internal object}
+\title{StepBeta and StepBetaBinomial internal object}
 \usage{
 check_formula_terms(model)
 }
@@ -13,5 +13,5 @@ check_formula_terms(model)
 It returns the complete formula in a standard form
 }
 \description{
-StepBeta internal object
+StepBeta and StepBetaBinomial internal object
 }
